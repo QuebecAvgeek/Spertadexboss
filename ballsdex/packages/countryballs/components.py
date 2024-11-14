@@ -96,7 +96,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
                     "that has been added to your completion!"
                 )
             await interaction.followup.send(
-                f"{interaction.user.mention} You caught **{self.ball.name}!** "
+                f"{interaction.user.mention} Good job, you caught **{self.ball.name}!** "
                 f"`(#{ball.pk:0X}, {ball.attack_bonus:+}%/{ball.health_bonus:+}%)`\n\n"
                 f"{special}",
                 allowed_mentions=discord.AllowedMentions(users=player.can_be_mentioned),
@@ -105,7 +105,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
             await interaction.followup.edit_message(self.ball.message.id, view=self.button.view)
         else:
             await interaction.followup.send(
-                f"{interaction.user.mention} Wrong name!",
+                f"{interaction.user.mention} Wrong name buddy",
                 allowed_mentions=discord.AllowedMentions(users=player.can_be_mentioned),
                 ephemeral=config.silent,
             )
@@ -196,32 +196,3 @@ class CatchView(View):
                 await self.ball.message.edit(view=self)
             except discord.HTTPException:
                 pass
-    class RarityButton(Button):
-    def __init__(self, ball: "CountryBall"):
-        super().__init__(style=discord.ButtonStyle.secondary, label="Show Rarity!")
-        self.ball = ball
-
-      async def callback(self, interaction: discord.Interaction):
-        if self.ball:
-
-            if self.ball.model.rarity == 0.5:
-                RarityText = "Common"
-            elif self.ball.model.rarity == 0.27:
-                RarityText = "Rare"
-            elif self.ball.model.rarity == 0.11:
-                RarityText = "Epic"
-            elif self.ball.model.rarity == 0.055:
-                RarityText = "Pseudo Legendary"
-            elif self.ball.model.rarity == 0.035:
-                RarityText = "Legendary"
-            elif self.ball.model.rarity == 0.02:
-                RarityText = "Mythic"
-            elif self.ball.model.rarity == 0.01:
-                RarityText = "God"
-            else:
-                RarityText = "Not Found"
-
-            await interaction.response.send_message(
-                f"The rarity of this {settings.collectible_name} is: {RarityText}",
-                ephemeral=True
-            )
