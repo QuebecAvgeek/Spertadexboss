@@ -50,7 +50,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
             )
         else:
             await interaction.response.send_message(
-                f"An error occured with this {settings.collectible_name}.",
+                f"Aww, sorry but an error occured with this {settings.collectible_name}.",
                 ephemeral=config.silent,
             )
 
@@ -66,7 +66,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
 
         if self.ball.catched:
             await interaction.followup.send(
-                f"{interaction.user.mention} I was caught already!",
+                f"Sorry {interaction.user.mention} but i was caught already!",
                 ephemeral=config.silent,
                 allowed_mentions=discord.AllowedMentions(users=player.can_be_mentioned),
             )
@@ -92,11 +92,11 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
                 special += f"*{ball.specialcard.catch_phrase}*\n"
             if has_caught_before:
                 special += (
-                    f"This is a **new {settings.collectible_name}** "
-                    "that has been added to your completion!"
+                    f"This is also a **new {settings.collectible_name}** "
+                    "that has been added to your completion, keep going!"
                 )
             await interaction.followup.send(
-                f"{interaction.user.mention} Good job, you caught **{self.ball.name}!** "
+                f"{interaction.user.mention} Nice job, you caught **{self.ball.name}!** "
                 f"`(#{ball.pk:0X}, {ball.attack_bonus:+}%/{ball.health_bonus:+}%)`\n\n"
                 f"{special}",
                 allowed_mentions=discord.AllowedMentions(users=player.can_be_mentioned),
@@ -105,7 +105,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
             await interaction.followup.edit_message(self.ball.message.id, view=self.button.view)
         else:
             await interaction.followup.send(
-                f"{interaction.user.mention} Wrong name buddy",
+                f"{interaction.user.mention} Wrong name buddy, try again",
                 allowed_mentions=discord.AllowedMentions(users=player.can_be_mentioned),
                 ephemeral=config.silent,
             )
