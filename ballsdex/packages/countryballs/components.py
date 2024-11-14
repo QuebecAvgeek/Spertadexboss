@@ -169,12 +169,12 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
 
 class CatchButton(Button):
     def __init__(self, ball: "CountryBall"):
-        super().__init__(style=discord.ButtonStyle.primary, label="Catch me!")
+        super().__init__(style=discord.ButtonStyle.primary, label="Catch me quick!")
         self.ball = ball
 
     async def callback(self, interaction: discord.Interaction):
         if self.ball.catched:
-            await interaction.response.send_message("I was caught already!", ephemeral=True)
+            await interaction.response.send_message("Sorry but i was caught already!", ephemeral=True)
         else:
             await interaction.response.send_modal(CountryballNamePrompt(self.ball, self))
 
@@ -196,3 +196,32 @@ class CatchView(View):
                 await self.ball.message.edit(view=self)
             except discord.HTTPException:
                 pass
+    class RarityButton(Button):
+    def __init__(self, ball: "CountryBall"):
+        super().__init__(style=discord.ButtonStyle.secondary, label="Show Rarity!")
+        self.ball = ball
+
+      async def callback(self, interaction: discord.Interaction):
+        if self.ball:
+
+            if self.ball.model.rarity == 0.5:
+                RarityText = "Common"
+            elif self.ball.model.rarity == 0.27:
+                RarityText = "Rare"
+            elif self.ball.model.rarity == 0.11:
+                RarityText = "Epic"
+            elif self.ball.model.rarity == 0.055:
+                RarityText = "Pseudo Legendary"
+            elif self.ball.model.rarity == 0.035:
+                RarityText = "Legendary"
+            elif self.ball.model.rarity == 0.02:
+                RarityText = "Mythic"
+            elif self.ball.model.rarity == 0.01:
+                RarityText = "God"
+            else:
+                RarityText = "Not Found"
+
+            await interaction.response.send_message(
+                f"The rarity of this {settings.collectible_name} is: {RarityText}",
+                ephemeral=True
+            )
