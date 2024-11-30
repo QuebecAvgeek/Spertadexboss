@@ -27,7 +27,7 @@ caught_balls = Counter(
 
 class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name}!"):
     name = TextInput(
-        label=f"Name of this {settings.collectible_name}",
+        label=f"Type the name of this {settings.collectible_name}",
         style=discord.TextStyle.short,
         placeholder="Your guess",
     )
@@ -45,7 +45,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
         log.exception("An error occured in countryball catching prompt", exc_info=error)
         if interaction.response.is_done():
             await interaction.followup.send(
-                f"An error occured with this {settings.collectible_name}.",
+                f"Aw man, an error occured with this {settings.collectible_name}.",
                 ephemeral=config.silent,
             )
         else:
@@ -87,7 +87,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
 
             special = ""
             if ball.shiny:
-                special += f"✨ ***It's a shiny {settings.collectible_name}!*** ✨\n"
+                special += f"✨ ***Woah! it's a shiny {settings.collectible_name}!!*** ✨\n"
             if ball.specialcard and ball.specialcard.catch_phrase:
                 special += f"*{ball.specialcard.catch_phrase}*\n"
             if has_caught_before:
@@ -105,7 +105,7 @@ class CountryballNamePrompt(Modal, title=f"Catch this {settings.collectible_name
             await interaction.followup.edit_message(self.ball.message.id, view=self.button.view)
         else:
             await interaction.followup.send(
-                f"{interaction.user.mention} Wrong name buddy, try again",
+                f"{interaction.user.mention} Wrong name buddy, dont give up!",
                 allowed_mentions=discord.AllowedMentions(users=player.can_be_mentioned),
                 ephemeral=config.silent,
             )
