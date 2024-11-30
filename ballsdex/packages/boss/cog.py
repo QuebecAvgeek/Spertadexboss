@@ -248,8 +248,8 @@ class Boss(commands.GroupCog):
             return
         self.balls.append(ball)
         self.usersinround.append([int(interaction.user.id),self.round])
-        if ball.attack > 14000: #maximum and minimum atk and hp stats 
-            ballattack = 14000
+        if ball.attack > 9000000: #maximum and minimum atk and hp stats 
+            ballattack = 9000000
         elif ball.attack < 0:
             ballattack = 0
         else:
