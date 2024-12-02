@@ -649,4 +649,4 @@ class Balls(commands.GroupCog, group_name=settings.players_group_cog_name):
         )
         await countryball.unlock()
 
-    )
+       )
